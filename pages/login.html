@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-image: url("../assest/Login.jpg");
+        }
+
+        .back {
+            position: absolute;
+            color: rgb(3, 0, 0);
+        }
+
+        .back:hover {
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="divlog">
+        <form>
+            <h2 class='back' onclick="window.location.href='../index.html'">⬅️</h2>
+            <h2 style="color: rgb(150, 3, 3); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Login</h2>
+            <br><br>
+            <p style="color: rgb(61, 53, 53); font-weight: bolder; font-family: Arial, Helvetica, sans-serif;">Email :
+            </p> <input type="email" id="emaill" class="textfield" placeholder="abc@gmail.com"><br><br>
+            <p style="color: rgb(36, 34, 34); font-weight: bolder; font-family: Arial, Helvetica, sans-serif;">Password
+                : </p><input type="password" id="passl" class="textfield" placeholder="********"><br><br>
+            <a href="#">Forgot Password?</a><br><br>
+            <input type="button" value="Login" class="login" style="position: absolute; left: 350px;" id="lugin">
+            <input type="button" value="Signup" class="signup" style="position: absolute; left: 550px;"
+                onclick="window.location.href='signup.html'">
+            <p id='message'></p>
+
+
+        </form>
+    </div>
+    <script type='module'>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7F8TrkmdYbCgF7QKgqkuwxyhajR_0hYw",
+            authDomain: "website-9448c.firebaseapp.com",
+            projectId: "website-9448c",
+            storageBucket: "website-9448c.appspot.com",
+            messagingSenderId: "1014931886170",
+            appId: "1:1014931886170:web:71c3720968d19b8b524863",
+            measurementId: "G-Y2573KP0GV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        document.getElementById('lugin').addEventListener('click',function(){
+            const email=document.getElementById('emaill').value;
+            const pass=document.getElementById('passl').value;
+            signInWithEmailAndPassword(auth,email,pass)
+                .then((userCredential) => {
+                    document.getElementById('message').style.color='green';
+                    document.getElementById('message').innerText = 'Login Sucessfully';
+                    window.location.href='welcome.html'
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    document.getElementById('message').style.color='red'
+                    document.getElementById('message').innerText = errorCode;
+                    // ..
+                });
+            
+            
+        })
+    
+            
+
+    </script>
+</body>
+
+</html>
